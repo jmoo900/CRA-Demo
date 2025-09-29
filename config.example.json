@@ -1,0 +1,21 @@
+{
+  "azure": {
+    "tenant_id": "",
+    "client_id": "",
+    "client_secret": "",
+    "subscription_id": "",
+    "resource_group": "",
+    "workspace_name": "",
+    "firmware_id": "",
+    "summary_type_name": "CommonVulnerabilitiesAndExposures",
+    "api_version": "2025-04-01-preview"
+  },
+  "cumulocity": {
+    "base_url": "",
+    "tenant": "",
+    "user": "",
+    "password": "",
+    "alarm_type": "Firmware.CVE.Summary",
+    "alarm_severity": "CRITICAL"
+  }
+}
