@@ -1,6 +1,7 @@
 # Ignore Python virtual environments
 venv/
 .venv/
+.idea/
 
 # Ignore config with secrets
 config.json
