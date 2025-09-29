@@ -1,14 +1,18 @@
-import requests
+"""
+Firmware Scanner Integration Module
+
+This module integrates Azure IoT Firmware Scanner with Cumulocity IoT platform
+to scan firmware for vulnerabilities and manage device alarms based on CVE findings.
+"""
 import json
 from datetime import datetime, timezone
 import urllib.parse
-from packaging import version as semver
 import random
-import json
-import os
+import requests
+from packaging import version as semver
 
 # Load config
-with open('config.json', 'r') as f:
+with open('config.json', 'r', encoding='utf-8') as f:
     config = json.load(f)
 
 # Azure Config
@@ -30,9 +34,6 @@ C8Y_PASSWORD = config["cumulocity"]["password"]
 ALARM_TYPE = config["cumulocity"]["alarm_type"]
 ALARM_SEVERITY = config["cumulocity"]["alarm_severity"]
 
-from packaging import version as semver
-
-
 # -------------Initialization to reset all firmware risk values-------------------
 def setup_reset_risk_for_all(family_model, scanned_version):
     """
@@ -46,7 +47,7 @@ def setup_reset_risk_for_all(family_model, scanned_version):
     url = f"{C8Y_BASE_URL}/inventory/managedObjects?pageSize=2000&withParents=true&query={query}"
     auth = (f"{C8Y_TENANT}/{C8Y_USER}", C8Y_PASSWORD)
 
-    r = requests.get(url, auth=auth)
+    r = requests.get(url, auth=auth, timeout=30)
     r.raise_for_status()
     mos = r.json().get("managedObjects", [])
 
@@ -78,9 +79,9 @@ def setup_reset_risk_for_all(family_model, scanned_version):
                 random_properties = generate_random_cve_properties()
 
                 # Always create an alarm for older firmware versions
-                for device in older_devices:
-                    create_alarm_on_device(device["id"], random_properties)
-                    print(f"✅ Alarm created for older firmware on device {device['name']} ({device['id']})")
+                for dev in older_devices:
+                    create_alarm_on_device(dev["id"], random_properties)
+                    print(f"✅ Alarm created for older firmware on device {dev['name']} ({dev['id']})")
 
             else:
                 # Skip scanned and newer versions
@@ -104,17 +105,18 @@ def generate_random_cve_properties():
 
 
 # ----------sets the risk level on firmware binary MO-------------
-def _set_fw_risk(mo_id, risk_level):
+def _set_fw_risk(fw_mo_id, risk_level):
     """Helper to PATCH risk attribute on a firmware binary MO."""
     update_payload = {"securityRisk": risk_level}
-    put_url = f"{C8Y_BASE_URL}/inventory/managedObjects/{mo_id}"
+    put_url = f"{C8Y_BASE_URL}/inventory/managedObjects/{fw_mo_id}"
     auth = (f"{C8Y_TENANT}/{C8Y_USER}", C8Y_PASSWORD)
-    r = requests.put(put_url, auth=auth, json=update_payload)
+    r = requests.put(put_url, auth=auth, json=update_payload, timeout=30)
     r.raise_for_status()
 
 
 # ------------ Azure Auth ------------
 def get_access_token():
+    """Acquire Azure AD access token for Azure Management API."""
     url = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/token"
     payload = {
         'client_id': CLIENT_ID,
@@ -122,13 +124,13 @@ def get_access_token():
         'client_secret': CLIENT_SECRET,
         'grant_type': 'client_credentials'
     }
-    r = requests.post(url, data=payload)
+    r = requests.post(url, data=payload, timeout=30)
     r.raise_for_status()
     return r.json()['access_token']
 
 
 # ------------ Azure: Get Firmware Metadata ------------
-def get_firmware_metadata(token):
+def get_firmware_metadata(access_token):
     """Fetch Azure firmware metadata including model and version."""
     url = (
         f"https://management.azure.com/subscriptions/{SUBSCRIPTION_ID}"
@@ -137,8 +139,8 @@ def get_firmware_metadata(token):
         f"/workspaces/{WORKSPACE_NAME}"
         f"/firmwares/{FIRMWARE_ID}?api-version={API_VERSION}"
     )
-    headers = {"Authorization": f"Bearer {token}"}
-    r = requests.get(url, headers=headers)
+    headers = {"Authorization": f"Bearer {access_token}"}
+    r = requests.get(url, headers=headers, timeout=30)
     r.raise_for_status()
     data = r.json()
     props = data.get("properties", {})
@@ -148,7 +150,8 @@ def get_firmware_metadata(token):
 
 
 # ------------ Azure API Call for CVE Summary ------------
-def get_firmware_cve_summary(token):
+def get_firmware_cve_summary(access_token):
+    """Fetch Azure firmware CVE summary."""
     url = (
         f"https://management.azure.com/subscriptions/{SUBSCRIPTION_ID}"
         f"/resourceGroups/{RESOURCE_GROUP}"
@@ -157,18 +160,19 @@ def get_firmware_cve_summary(token):
         f"/firmwares/{FIRMWARE_ID}"
         f"/summaries/{SUMMARY_TYPE_NAME}?api-version={API_VERSION}"
     )
-    headers = {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
-    r = requests.get(url, headers=headers)
+    headers = {'Authorization': f'Bearer {access_token}', 'Content-Type': 'application/json'}
+    r = requests.get(url, headers=headers, timeout=30)
     r.raise_for_status()
     return r.json()
 
 
 # ------------ Find FirmwareBinary by Model + Version ------------
 def find_firmware_binary_by_model_and_version(model, version):
+    """Find firmware binary managed object by model and version."""
     query = urllib.parse.quote(f"type eq 'c8y_FirmwareBinary' and c8y_Firmware.version eq '{version}'")
     url = f"{C8Y_BASE_URL}/inventory/managedObjects?pageSize=2000&withParents=true&query={query}"
     auth = (f"{C8Y_TENANT}/{C8Y_USER}", C8Y_PASSWORD)
-    r = requests.get(url, auth=auth)
+    r = requests.get(url, auth=auth, timeout=30)
     r.raise_for_status()
     mos = r.json().get("managedObjects", [])
     for mo in mos:
@@ -181,39 +185,41 @@ def find_firmware_binary_by_model_and_version(model, version):
 
 
 # ------------ Update FirmwareBinary MO with Scan ------------
-def update_firmware_binary_with_scan(firmware_mo, azure_ids, scan_entry):
-    mo_id = firmware_mo["id"]
+def update_firmware_binary_with_scan(firmware_mo, azure_scan_info, scan_data):
+    """Update firmware binary managed object with scan results."""
+    fw_mo_id = firmware_mo["id"]
     # Check if scanResults exists and is a list. If not, initialize it.
     existing_results = firmware_mo.get("scanResults", [])
     if not isinstance(existing_results, list):
         existing_results = []
 
     # Append the new scan entry to the list
-    existing_results.append(scan_entry)
+    existing_results.append(scan_data)
 
-    risk = calculate_risk(scan_entry["result"])
+    risk = calculate_risk(scan_data["result"])
 
     update_payload = {
-        "azureScanInfo": azure_ids,
+        "azureScanInfo": azure_scan_info,
         "scanResults": existing_results,
-        "latestScan": scan_entry,
+        "latestScan": scan_data,
         "securityRisk": risk
     }
 
-    url = f"{C8Y_BASE_URL}/inventory/managedObjects/{mo_id}"
+    url = f"{C8Y_BASE_URL}/inventory/managedObjects/{fw_mo_id}"
     auth = (f"{C8Y_TENANT}/{C8Y_USER}", C8Y_PASSWORD)
-    r = requests.put(url, auth=auth, json=update_payload)
+    r = requests.put(url, auth=auth, json=update_payload, timeout=30)
     r.raise_for_status()
-    return mo_id
+    return fw_mo_id
 
 
 # ------------- Calculate the risk for firmware after scan --------------
-def calculate_risk(properties):
-    if properties.get("criticalCveCount", 0) > 0:
+def calculate_risk(cve_properties):
+    """Calculate firmware risk level based on CVE counts."""
+    if cve_properties.get("criticalCveCount", 0) > 0:
         return "critical"
-    elif properties.get("highCveCount", 0) >= 3:
+    elif cve_properties.get("highCveCount", 0) >= 3:
         return "major"
-    elif properties.get("mediumCveCount", 0) >= 3:
+    elif cve_properties.get("mediumCveCount", 0) >= 3:
         return "marginal"
     else:
         return "none"
@@ -221,34 +227,36 @@ def calculate_risk(properties):
 
 # ------------ Find Devices Running This FW ------------
 def find_devices_with_firmware(model, version):
+    """Find devices running specific firmware model and version."""
     query = urllib.parse.quote(f"c8y_Firmware.name eq '{model}' and c8y_Firmware.version eq '{version}'")
     url = f"{C8Y_BASE_URL}/inventory/managedObjects?pageSize=2000&query={query}"
     auth = (f"{C8Y_TENANT}/{C8Y_USER}", C8Y_PASSWORD)
-    r = requests.get(url, auth=auth)
+    r = requests.get(url, auth=auth, timeout=30)
     r.raise_for_status()
     return r.json().get("managedObjects", [])
 
 
 # ------------ Create Alarm on Device ------------
-def create_alarm_on_device(device_id, properties):
+def create_alarm_on_device(device_id, cve_properties):
+    """Create alarm on device with specific CVE properties."""
     url = f"{C8Y_BASE_URL}/alarm/alarms"
     auth = (f"{C8Y_TENANT}/{C8Y_USER}", C8Y_PASSWORD)
     alarm_payload = {
         "source": {"id": device_id},
         "type": ALARM_TYPE,
         "text": (
-            f"CVE Summary - Critical:{properties.get('criticalCveCount', 0)}, "
-            f"High:{properties.get('highCveCount', 0)}, "
-            f"Medium:{properties.get('mediumCveCount', 0)}, "
-            f"Low:{properties.get('lowCveCount', 0)}, "
-            f"Unknown:{properties.get('unknownCveCount', 0)}"
+            f"CVE Summary - Critical:{cve_properties.get('criticalCveCount', 0)}, "
+            f"High:{cve_properties.get('highCveCount', 0)}, "
+            f"Medium:{cve_properties.get('mediumCveCount', 0)}, "
+            f"Low:{cve_properties.get('lowCveCount', 0)}, "
+            f"Unknown:{cve_properties.get('unknownCveCount', 0)}"
         ),
         "severity": ALARM_SEVERITY,
         "status": "ACTIVE",
         "time": datetime.now(timezone.utc).isoformat(),
-        "cveSummary": properties
+        "cveSummary": cve_properties
     }
-    r = requests.post(url, auth=auth, json=alarm_payload)
+    r = requests.post(url, auth=auth, json=alarm_payload, timeout=30)
     r.raise_for_status()
 
 
@@ -262,7 +270,7 @@ if __name__ == "__main__":
         # 2. Get firmware metadata from Azure
         firmware_model, firmware_version = get_firmware_metadata(token)
         if not firmware_model or not firmware_version:
-            raise Exception("Could not retrieve model/version from Azure firmware metadata")
+            raise ValueError("Could not retrieve model/version from Azure firmware metadata")
         print(f"ℹ️ Firmware model from Azure: {firmware_model}, version: {firmware_version}")
 
         # 2.B Find and update all firmware binaries, creating alarms for older versions
@@ -297,8 +305,8 @@ if __name__ == "__main__":
                 exit(1)
 
             # 5. Update firmware binary MO with scan results
-            mo_id = update_firmware_binary_with_scan(fw_binary_mo, azure_ids, scan_entry)
-            print(f"✅ Updated FirmwareBinary MO {mo_id} with latest scan results.")
+            firmware_mo_id = update_firmware_binary_with_scan(fw_binary_mo, azure_ids, scan_entry)
+            print(f"✅ Updated FirmwareBinary MO {firmware_mo_id} with latest scan results.")
 
             # 6. Find devices running this firmware
             devices = find_devices_with_firmware(firmware_model, firmware_version)
@@ -314,5 +322,5 @@ if __name__ == "__main__":
 
     except requests.HTTPError as e:
         print(f"HTTP error: {e.response.status_code} - {e.response.text}")
-    except Exception as ex:
+    except (ValueError, KeyError, ConnectionError) as ex:
         print(f"❌ Error: {str(ex)}")

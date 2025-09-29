@@ -1,0 +1,679 @@
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X100-01"
+id = 9101
+serial = "COMP-X100-0001"
+model = "X100"
+revision = "A"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X100-02"
+id = 9102
+serial = "COMP-X100-0002"
+model = "X100"
+revision = "A"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "0.7.7"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X100-03"
+id = 9103
+serial = "COMP-X100-0003"
+model = "X100"
+revision = "A"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X200-01"
+id = 9104
+serial = "COMP-X200-0001"
+model = "X200"
+revision = "B"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X200-02"
+id = 9105
+serial = "COMP-X200-0002"
+model = "X200"
+revision = "B"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "0.8.5"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X200-03"
+id = 9106
+serial = "COMP-X200-0003"
+model = "X200"
+revision = "B"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "0.8.5"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X300-01"
+id = 9107
+serial = "COMP-X300-0001"
+model = "X300"
+revision = "C"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X300-02"
+id = 9108
+serial = "COMP-X300-0002"
+model = "X300"
+revision = "C"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X300-03"
+id = 9109
+serial = "COMP-X300-0003"
+model = "X300"
+revision = "C"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.1"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X100-04"
+id = 9110
+serial = "COMP-X100-0004"
+model = "X100"
+revision = "A"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "0.7.7"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X100-05"
+id = 9111
+serial = "COMP-X100-0005"
+model = "X100"
+revision = "A"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X200-04"
+id = 9112
+serial = "COMP-X200-0004"
+model = "X200"
+revision = "B"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X200-05"
+id = 9113
+serial = "COMP-X200-0005"
+model = "X200"
+revision = "B"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "0.8.5"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X300-04"
+id = 9114
+serial = "COMP-X300-0004"
+model = "X300"
+revision = "C"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X300-05"
+id = 9115
+serial = "COMP-X300-0005"
+model = "X300"
+revision = "C"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X100-06"
+id = 9116
+serial = "COMP-X100-0006"
+model = "X100"
+revision = "A"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "0.7.7"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X100-07"
+id = 9117
+serial = "COMP-X100-0007"
+model = "X100"
+revision = "A"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X200-06"
+id = 9118
+serial = "COMP-X200-0006"
+model = "X200"
+revision = "B"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.0"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X200-07"
+id = 9119
+serial = "COMP-X200-0007"
+model = "X200"
+revision = "B"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "0.8.5"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"
+
+[[childDevices]]
+type = "SmartCompressor"
+name = "Compressor-X300-06"
+id = 9120
+serial = "COMP-X300-0006"
+model = "X300"
+revision = "C"
+firmwareName = "IoT-SensorPro-EdgeOS"
+firmwareVersion = "1.0.1"
+    [[childDevices.measurements]]
+    type = "Temperature"
+    series = "Temp"
+    min = 45
+    max = 90
+    units = "°C"
+    [[childDevices.measurements]]
+    type = "Pressure"
+    series = "Press"
+    min = 5
+    max = 11
+    units = "bar"
+    [[childDevices.measurements]]
+    type = "Vibration"
+    series = "Vibe"
+    min = 0.03
+    max = 0.08
+    units = "g"
+    [[childDevices.measurements]]
+    type = "Power"
+    series = "Power"
+    min = 2.5
+    max = 11
+    units = "kW"

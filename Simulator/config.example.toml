@@ -1,0 +1,39 @@
+["agent settings"]
+url = ""
+tenant = ""
+username = ""
+password = ""
+deviceid = "SmartEquipmentGateway"
+devicename = "SmartEquipmentGateway"
+port = 1883
+updaterateinseconds = 60
+log_level = "DEBUG"
+
+[[measurements]]
+type = "Vibration"
+series = "Vibration"
+max = 60
+min = 30
+units = "Hz"
+
+[[measurements]]
+type = "Temperature"
+series = "Temperature"
+max = 30
+min = 10
+units = "C"
+
+[[measurements]]
+type = "Humidity"
+max = 60
+min = 30
+series = "Humidity"
+units = "%"
+
+[[measurements]]
+type = "Pressure"
+max = 1000
+min = 750
+series = "Pressure"
+units = "psi"
+

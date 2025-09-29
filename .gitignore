@@ -5,6 +5,7 @@ venv/
 
 # Ignore config with secrets
 config.json
+Simulator/config.toml
 
 # Ignore Python cache, logs, and OS files
 __pycache__/
