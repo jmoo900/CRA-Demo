@@ -134,11 +134,6 @@ def on_message(client, userdata, message, properties=None):
     if payload.startswith("515"):
         _, device_id, firmware_name, firmware_version, firmware_url = payload.split(",")
         executor.submit(perform_firmware_update, device_id, firmware_name, firmware_version, firmware_url)
-    if payload.startswith("522"):
-        task_queue.put([perform_log_upload_1])
-        logging.info(payload)
-    if payload.startswith("798"):
-        task_queue.put([perform_log_upload_2, payload.split(',')[1]])
     if payload.startswith("71"):
         agent_state.jwt_token = payload.split(',')[1]
 
@@ -195,7 +190,6 @@ def registration():
             publish("s/us/" + str(child_device["id"]), "114,c8y_Restart,c8y_Firmware")
             publish("s/us/" + str(child_device["id"]), "115," + child_device["firmwareName"] + "," + child_device["firmwareVersion"])
             publish("s/us/" + str(child_device["id"]), "117,15")
-            publish("s/uc/calibrated", "999," + str(child_device["id"]) + ",5,10")
 
             logging.info("Device %s registered successfully", child_device["name"])
             agent_state.has_children = True
@@ -218,34 +212,6 @@ def perform_restart(device_id):
 
     publish("s/us/" + device_id, "503,c8y_Restart", wait_for_ack=True)
     logging.info("...RESTART COMPLETE")
-
-
-def perform_log_upload_1():
-    '''Perform log upload operation for a device.'''
-    # create event
-    publish("s/us", "501,c8y_LogfileRequest")
-    publish("s/ud", "799,")
-
-
-def perform_log_upload_2(eventid):
-    '''Perform log upload operation for a device.
-    
-    Args:
-        eventid (str): ID of the event to upload logs for
-    '''
-    try:
-        request_header = {
-            "Accept": "application/json",
-            "Content-Type": "multipart/form-data",
-            "Authorization": "Bearer " + agent_state.jwt_token
-        }
-
-        payload = {"type": "text/plain"}
-        files = [('', ('agentLog.log', open('agentLog.log', 'rb'), 'application/octet-stream'))]        
-        requests.request("PUT", restUrl + "/event/events/" + eventid + "/binaries", headers=request_header, data=payload, files=files, timeout=30)
-        publish("s/us", "503,c8y_LogfileRequest," + restUrl + "/event/events/" + eventid + "/binaries")
-    except:
-        publish("s/us", "502,c8y_LogfileRequest")
 
 
 def perform_firmware_update(device_id, firmware_name, firmware_version, firmware_url):
