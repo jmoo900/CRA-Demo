@@ -1,3 +1,6 @@
+Firmware Binary Google Share: 
+https://drive.google.com/drive/folders/1zQNQpJsHbTT3I6CwW3Y5jrvJ_b3Nj8kX?usp=sharing
+
 FW SCANNER INTEGRATION SCRIPT
 Copy the config.example.json file and name as config.json.  In this file, provide all connectivity options to run this demo.
 
